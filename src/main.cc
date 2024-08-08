@@ -409,43 +409,55 @@ int main() {
   negative_shapes.push_back(b_cut.GetInverseSwitch());
   AddShapes(&negative_shapes, screw_holes);
 
-  // Cut out holes for cords. Inserts can be printed to fit in.
-  Shape trrs_hole = Cylinder(20, 5, 30).RotateX(90);
+  // // Cut out holes for cords. Inserts can be printed to fit in.
+  // Shape trrs_hole = Cylinder(20, 5, 30).RotateX(90);
 
-  glm::vec3 trrs_hole_location = d.key_r.GetTopRight().Apply(kOrigin);
-  trrs_hole_location.z = 11;
-  trrs_hole_location.x -= 5;
-  negative_shapes.push_back(trrs_hole.Translate(trrs_hole_location));
+  // glm::vec3 trrs_hole_location = d.key_r.GetTopRight().Apply(kOrigin);
+  // trrs_hole_location.z = 11;
+  // trrs_hole_location.x -= 5;
+  // negative_shapes.push_back(trrs_hole.Translate(trrs_hole_location));
+
+  // {
+
+  //   Shape bottom = Cube(5, 1.5, 8).TranslateZ(8/2).TranslateY((-5.3 / 2) + (-1.5 / 2));
+  //   Shape c = Cylinder(2.5, 8, 30).TranslateZ(2.5 / 2);
+  //   Shape cut = Cube(6.3, 5.3, 8);
+  //   Union(bottom, c).Subtract(cut).WriteToFile("trrs.scad");
+  // }
+
+  // Shape result = UnionAll(shapes);
+  // // Subtracting is expensive to preview and is best to disable while testing.
+  // result = result.Subtract(UnionAll(negative_shapes));
+  // result.WriteToFile("left.scad");
 
   {
+    // glm::vec3 usb_location = d.key_e.GetTopLeft().Apply({10, 0, 0});
+    // usb_location.z = 6;
+    // usb_location.y += 4;
+    // Shape c = Cylinder(8, 2.5, 30).RotateX(90).Translate(usb_location);
+    // Shape usb_hole = Hull(c, c.Projection().LinearExtrude(.1));
+    // result.Subtract(usb_hole).MirrorX().WriteToFile("right.scad");
 
-    Shape bottom = Cube(5, 1.5, 8).TranslateZ(8/2).TranslateY((-5.3 / 2) + (-1.5 / 2));
-    Shape c = Cylinder(2.5, 8, 30).TranslateZ(2.5 / 2);
-    Shape cut = Cube(6.3, 5.3, 8);
-    Union(bottom, c).Subtract(cut).WriteToFile("trrs.scad");
+    // double thick = 3.8;
+    // Shape front = Cube(4.8, thick, 7).TranslateZ(7/2);
+    // Shape back = Cube(8, 2, 7.5).TranslateZ(7.5/2).TranslateY(thick/2 + .5);
+  
+    // Shape c2 = Cylinder(8, 2.5, 30).RotateX(90).TranslateZ(6);
+    // Union(front, back).Subtract(c2).WriteToFile("usb_holder.scad");
   }
+
+  // Cut out hole for holder.
+  Shape holder_hole = Cube(29.0, 20.0, 12.5).TranslateZ(12 / 2);
+  glm::vec3 holder_location = d.key_r.GetTopLeft().Apply(kOrigin);
+  holder_location.z = -0.5;
+  holder_location.x += 17.5;
+  negative_shapes.push_back(holder_hole.Translate(holder_location));
 
   Shape result = UnionAll(shapes);
   // Subtracting is expensive to preview and is best to disable while testing.
   result = result.Subtract(UnionAll(negative_shapes));
   result.WriteToFile("left.scad");
-
-  {
-    glm::vec3 usb_location = d.key_e.GetTopLeft().Apply({10, 0, 0});
-    usb_location.z = 6;
-    usb_location.y += 4;
-    Shape c = Cylinder(8, 2.5, 30).RotateX(90).Translate(usb_location);
-    Shape usb_hole = Hull(c, c.Projection().LinearExtrude(.1));
-    result.Subtract(usb_hole).MirrorX().WriteToFile("right.scad");
-
-    double thick = 3.8;
-    Shape front = Cube(4.8, thick, 7).TranslateZ(7/2);
-    Shape back = Cube(8, 2, 7.5).TranslateZ(7.5/2).TranslateY(thick/2 + .5);
-  
-    Shape c2 = Cylinder(8, 2.5, 30).RotateX(90).TranslateZ(6);
-    Union(front, back).Subtract(c2).WriteToFile("usb_holder.scad");
-  }
-
+  result.MirrorX().WriteToFile("right.scad");
 
   // Bottom plate
   {
