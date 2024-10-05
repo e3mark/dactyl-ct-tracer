@@ -168,6 +168,20 @@ int main() {
                               d.key_b.GetBottomRight(),
                           }));
 
+shapes.push_back(TriFan(d.key_m3.GetBottomLeft(),
+                          {
+                              d.key_th_top3.GetTopRight(),
+                              d.key_th_top3.GetTopLeft(),
+                              d.key_m3.GetBottomRight(),
+                          }));
+
+shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
+                          {
+                              d.key_th_top3.GetTopRight(),
+                              d.key_th_top3.GetTopLeft(),
+                              d.key_m3.GetBottomRight(),
+                          }));
+
   shapes.push_back(TriFan(d.key_th_bottom2.GetTopRight(),
                           {
                               d.key_th_bottom2.GetBottomRight(),
