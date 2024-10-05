@@ -12,7 +12,7 @@ using namespace scad;
 constexpr bool kWriteTestKeys = false;
 constexpr bool kIncludeDactylRef = false;
 // Add the caps into the stl for testing.
-constexpr bool kAddCaps = false;
+constexpr bool kAddCaps = true;
 
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
