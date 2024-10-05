@@ -12,7 +12,7 @@ using namespace scad;
 constexpr bool kWriteTestKeys = false;
 constexpr bool kIncludeDactylRef = false;
 // Add the caps into the stl for testing.
-constexpr bool kAddCaps = true;
+constexpr bool kAddCaps = false;
 
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
@@ -64,16 +64,21 @@ int main() {
   d.key_th3.extra_width_right = 2;
   d.key_th_top3.extra_width_right = 1;
   d.key_th2.extra_width_top = 2;
+
   d.key_v.extra_width_bottom = 4;
-  d.key_e.extra_width_top = 2.5;
-  d.key_r.extra_width_top = 2;
 
-  d.key_q.extra_width_left = 3;
-  d.key_a.extra_width_left = 3;
-  d.key_z.extra_width_left = 3;
+  d.key_m2.extra_width_right = 3;
 
-  d.key_t.extra_width_right = 3;
-  d.key_g.extra_width_right = 3;
+  d.key_4.extra_width_top = 2;
+  d.key_4.extra_width_top = 2;
+
+  d.key_tab.extra_width_left = 2;
+  d.key_caps.extra_width_left = 2;
+  d.key_shift.extra_width_left = 2;
+
+  d.key_m1.extra_width_right = 2;
+  d.key_m2.extra_width_right = 2;
+  d.key_m3.extra_width_right = 2;
 
   std::vector<Shape> shapes;
 
@@ -236,20 +241,34 @@ int main() {
 
     std::vector<WallPoint> wall_points = {
 
-        {d.key_w.GetTopLeft(), up, 1},
+        // {d.key_w.GetTopLeft(), up, 1},;tracer default
 
-        {d.key_e.GetTopLeft(), up},
-        {d.key_e.GetTopRight(), up},
+        // {d.key_e.GetTopLeft(), up},;tracer default
+        // {d.key_e.GetTopRight(), up},;tracer default
 
-        {d.key_r.GetTopRight(), up, 1.5},
+        // {d.key_r.GetTopRight(), up, 1.5},;tracer default
+        // //       {d.key_t.GetTopLeft(), up},
+        // {d.key_t.GetTopRight(), up},;tracer default
+        // {d.key_t.GetTopRight(), right},;tracer default
+        // {d.key_t.GetBottomRight(), right},;tracer default
+ 
+        {d.key_tab.GetTopLeft(), up, 1},
+        {d.key_2.GetTopLeft(), up},
+        {d.key_2.GetTopRight(), up},
 
-        //       {d.key_t.GetTopLeft(), up},
-        {d.key_t.GetTopRight(), up},
-        {d.key_t.GetTopRight(), right},
-        {d.key_t.GetBottomRight(), right},
+        {d.key_3.GetTopLeft(), up},
+        {d.key_3.GetTopRight(), up},
 
-        {d.key_g.GetTopRight(), right},
-        {d.key_g.GetBottomRight(), right},
+        {d.key_4.GetTopRight(), up, 1.5},
+
+        {d.key_m1.GetTopRight(), up},
+        {d.key_m1.GetTopRight(), right},
+        {d.key_m1.GetBottomRight(), right},
+
+        //{d.key_g.GetTopRight(), right},;tracer default
+        //{d.key_g.GetBottomRight(), right},;tracer default
+        {d.key_m2.GetTopRight(), right},
+        {d.key_m2.GetBottomRight(), right},
 
         {d.key_th_top3.GetTopRight(), up},
         {d.key_th_top3.GetTopRight(), right},
@@ -267,15 +286,26 @@ int main() {
         {d.key_slash.GetBottomRight(), down},
         {d.key_slash.GetBottomLeft(), down},
 
-        {d.key_z.GetBottomLeft(), down},
-        {d.key_z.GetBottomLeft(), left},
+        //{d.key_z.GetBottomLeft(), down},//tracer default
+        //{d.key_z.GetBottomLeft(), left},//tracer default
+        //{d.key_a.GetBottomLeft(), left},//tracer default
+        //{d.key_a.GetTopLeft(), left},//tracer default
 
-        {d.key_a.GetBottomLeft(), left},
-        {d.key_a.GetTopLeft(), left},
 
-        {d.key_q.GetBottomLeft(), left},
-        {d.key_q.GetTopLeft(), left},
-        {d.key_q.GetTopLeft(), up, 1, 0},
+        {d.key_tilde.GetBottomRight(), down},
+        {d.key_tilde.GetBottomLeft(), down},
+        {d.key_shift.GetBottomLeft(), down},
+        {d.key_shift.GetBottomLeft(), left},
+        {d.key_caps.GetBottomLeft(), left},
+        {d.key_caps.GetTopLeft(), left},
+
+        // {d.key_q.GetBottomLeft(), left},;default tracer
+        // {d.key_q.GetTopLeft(), left},;default tracer
+        // {d.key_q.GetTopLeft(), up, 1, 0},;default tracer
+
+        {d.key_tab.GetBottomLeft(), left},
+        {d.key_tab.GetTopLeft(), left},
+        {d.key_tab.GetTopLeft(), up, 1, 0},
 
     };
 
