@@ -69,13 +69,17 @@ int main() {
 
   d.key_m2.extra_width_right = 3;
 
-  d.key_4.extra_width_top = 2;
-  d.key_4.extra_width_top = 2;
+  d.key_1.extra_width_top = 6 ;
+  d.key_4.extra_width_top = 0;
 
   d.key_tab.extra_width_left = 2;
   d.key_caps.extra_width_left = 2;
   d.key_shift.extra_width_left = 2;
 
+  d.key_slash.extra_width_bottom = 7.5;
+  
+
+  d.key_m1.extra_width_top = 0;
   d.key_m1.extra_width_right = 2;
   d.key_m2.extra_width_right = 2;
   d.key_m3.extra_width_right = 2;
@@ -252,23 +256,26 @@ int main() {
         // {d.key_t.GetTopRight(), right},;tracer default
         // {d.key_t.GetBottomRight(), right},;tracer default
  
-        {d.key_tab.GetTopLeft(), up, 1},
+        {d.key_1.GetTopLeft(), up},
+        {d.key_1.GetTopRight(), up},
         {d.key_2.GetTopLeft(), up},
         {d.key_2.GetTopRight(), up},
-
         {d.key_3.GetTopLeft(), up},
         {d.key_3.GetTopRight(), up},
-
-        {d.key_4.GetTopRight(), up, 1.5},
-
+        {d.key_4.GetTopLeft(), up},
+        {d.key_4.GetTopRight(), up},
+        {d.key_5.GetTopLeft(), up},
+        {d.key_5.GetTopRight(), up},
+        {d.key_m1.GetTopLeft(), up},
         {d.key_m1.GetTopRight(), up},
+
+        //{d.key_4.GetTopRight(), up, 1.5},
         {d.key_m1.GetTopRight(), right},
         {d.key_m1.GetBottomRight(), right},
-
-        //{d.key_g.GetTopRight(), right},;tracer default
-        //{d.key_g.GetBottomRight(), right},;tracer default
         {d.key_m2.GetTopRight(), right},
         {d.key_m2.GetBottomRight(), right},
+        {d.key_m3.GetTopRight(), right},
+        {d.key_m3.GetBottomRight(), right, 1, .5},
 
         {d.key_th_top3.GetTopRight(), up},
         {d.key_th_top3.GetTopRight(), right},
@@ -294,18 +301,43 @@ int main() {
 
         {d.key_tilde.GetBottomRight(), down},
         {d.key_tilde.GetBottomLeft(), down},
-        {d.key_shift.GetBottomLeft(), down},
-        {d.key_shift.GetBottomLeft(), left},
+
+        {d.key_fn.GetBottomLeft(), down, 0, .75},
+        {d.key_fn.GetBottomLeft(), left, 0, .5},
+        {d.key_fn.GetTopLeft(), left, 0, .5},
+
         {d.key_caps.GetBottomLeft(), left},
         {d.key_caps.GetTopLeft(), left},
+
+        {d.key_tab.GetBottomLeft(), left},
+        {d.key_tab.GetTopLeft(), left},
+
+        {d.key_plus.GetBottomLeft(), left},
+        {d.key_plus.GetTopLeft(), left},
+
+        // {d.key_caps.GetBottomLeft(), left},
+        // {d.key_caps.GetBottomLeft(), left},
+
+        // {d.key_tab.GetBottomLeft(), left},
+        // {d.key_tab.GetTopLeft(), left},
+
+        // {d.key_plus.GetBottomLeft(), left},
+        // {d.key_plus.GetTopLeft(), left},
+    
+        // {d.key_shift.GetBottomLeft(), left},
+        // {d.key_shift.GetBottomLeft(), left},
+
+        // {d.key_plus.GetBottomLeft(), left},
+        // {d.key_plus.GetTopLeft(), left},
+        // {d.key_plus.GetTopLeft(), up, 1, 0},
 
         // {d.key_q.GetBottomLeft(), left},;default tracer
         // {d.key_q.GetTopLeft(), left},;default tracer
         // {d.key_q.GetTopLeft(), up, 1, 0},;default tracer
 
-        {d.key_tab.GetBottomLeft(), left},
-        {d.key_tab.GetTopLeft(), left},
-        {d.key_tab.GetTopLeft(), up, 1, 0},
+        // {d.key_tab.GetBottomLeft(), left},
+        // {d.key_tab.GetTopLeft(), left},
+        // {d.key_tab.GetTopLeft(), up, 1, 0},
 
     };
 

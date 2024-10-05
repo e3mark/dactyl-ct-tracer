@@ -73,7 +73,8 @@ KeyData::KeyData(TransformList key_origin) {
 key_th1.Configure([&](Key& k) {
     k.name = "key_th1";
     k.SetParent(key_origin);
-    k.SetPosition(60, -9.18, 42.83);
+    //k.SetPosition(60, -9.18, 42.83);//default
+    k.SetPosition(58, -4.18, 42.83);
     k.t().x += -8;
     k.t().y += 3;//3
     k.t().z += 1.5;
