@@ -50,6 +50,8 @@ Shape RotateCapEdge(Shape s, SaEdgeType edge_type) {
     case SaEdgeType::BOTTOM:
       return s;
   }
+
+  return s;
 }
 
 }  // namespace
@@ -64,21 +66,21 @@ Shape MakeSwitch(bool add_side_nub, bool add_top_nub) {
   shapes.push_back(top_wall.RotateZ(180));
   shapes.push_back(top_wall.RotateZ(270));
 
-  if (add_side_nub) {
-    Shape side_nub =
-        Hull(Cube(kWallWidth, 2.75, kSwitchThickness)
-                 .Translate(kWallWidth / 2 + kSwitchWidth / 2 -.2, 0, kSwitchThickness / 2),
-             Cylinder(2.75, 1, 30).RotateX(90).Translate(kSwitchWidth / 2, 0, 1));
-    shapes.push_back(side_nub);
-    shapes.push_back(side_nub.RotateZ(180));
-  }
-  if (add_top_nub) {
+  // if (add_side_nub) {
+  //   Shape side_nub =
+  //       Hull(Cube(kWallWidth, 2.75, kSwitchThickness)
+  //                .Translate(kWallWidth / 2 + kSwitchWidth / 2 -.2, 0, kSwitchThickness / 2),
+  //            Cylinder(2.75, 1, 30).RotateX(90).Translate(kSwitchWidth / 2, 0, 1));
+  //   shapes.push_back(side_nub);
+  //   shapes.push_back(side_nub.RotateZ(180));
+  // }
+  //if (add_top_nub) {
     double height = .9;
     Shape nub = Cube(3.8, .5, height)
                     .Translate(0, kSwitchWidth / 2 - .25, kSwitchThickness  - height / 2);
     shapes.push_back(nub);
     shapes.push_back(nub.RotateZ(180));
-  }
+  //}
 
   return UnionAll(shapes).TranslateZ(kSwitchThickness * -1);
 }

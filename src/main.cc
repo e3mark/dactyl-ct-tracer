@@ -81,16 +81,15 @@ int main() {
   d.key_shift.extra_width_left = 2;
   d.key_fn.extra_width_left = 2;
 
-  d.key_slash.extra_width_bottom = 7.5;
   
-
   d.key_m1.extra_width_top = 1.25;
-
   d.key_m1.extra_width_right = 2;
   d.key_m2.extra_width_right = 2;
   d.key_m3.extra_width_right = 2;
 
-
+  d.key_fn.extra_width_bottom = 4.75;
+  d.key_tilde.extra_width_bottom = 0;
+  d.key_slash.extra_width_bottom = 7;
 
   std::vector<Shape> shapes;
 
@@ -104,13 +103,6 @@ int main() {
                          ConnectHorizontal(d.key_th2, d.key_th3),
                          ConnectHorizontal(d.key_th1, d.key_th2)));
 
-  shapes.push_back(TriFan(d.key_z.GetBottomRight(),
-                          {
-                              d.key_z.GetBottomLeft(),
-                              d.key_slash.GetBottomLeft(),
-                              d.key_slash.GetTopLeft(),
-                              d.key_x.GetBottomLeft(),
-                          }));
   shapes.push_back(TriMesh({
       d.key_th1.GetBottomLeft(),
       d.key_slash.GetBottomRight(),
@@ -284,25 +276,16 @@ int main() {
         {d.key_th_bottom2.GetBottomRight(), right},
         {d.key_th_bottom2.GetBottomRight(), down},
         {d.key_th_bottom2.GetBottomLeft(), down},
-
         {d.key_th1.GetBottomLeft(), down},
 
         {d.key_slash.GetBottomRight(), down},
         {d.key_slash.GetBottomLeft(), down},
-
+        {d.key_tilde.GetBottomRight(), down},
+        {d.key_tilde.GetBottomLeft(), down},
         {d.key_fn.GetBottomRight(), down},
         {d.key_fn.GetBottomLeft(), down},
 
-        //{d.key_z.GetBottomLeft(), down},//tracer default
-        //{d.key_z.GetBottomLeft(), left},//tracer default
-        //{d.key_a.GetBottomLeft(), left},//tracer default
-        //{d.key_a.GetTopLeft(), left},//tracer default
-
-
-        {d.key_tilde.GetBottomRight(), down},
-        {d.key_tilde.GetBottomLeft(), down},
-
-{d.key_fn.GetBottomLeft(), down, 0, .75},
+        //{d.key_fn.GetBottomLeft(), down, 0, .75},
         {d.key_fn.GetBottomLeft(), left, 0, .5},
         {d.key_fn.GetTopLeft(), left, 0, .5},
 
