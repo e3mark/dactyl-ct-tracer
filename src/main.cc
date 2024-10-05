@@ -60,10 +60,14 @@ int main() {
 
   // Set all of the widths here. This must be done before calling any of GetTopLeft etc.
 
-  d.key_th_top3.extra_width_top = 2;
+
+d.key_th1.extra_width_top = 2;
+  d.key_th1.extra_width_left = 2;
+
+  d.key_th2.extra_width_top = 2;
   d.key_th3.extra_width_right = 2;
   d.key_th_top3.extra_width_right = 1;
-  d.key_th2.extra_width_top = 2;
+  d.key_th_top3.extra_width_top = 2;
 
   d.key_v.extra_width_bottom = 4;
 
@@ -90,6 +94,9 @@ int main() {
   d.key_fn.extra_width_bottom = 4.75;
   d.key_tilde.extra_width_bottom = 0;
   d.key_slash.extra_width_bottom = 7;
+
+
+  
 
   std::vector<Shape> shapes;
 
@@ -209,16 +216,6 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
                        d.key_th_bottom2.GetTopRight().Apply(GetPostConnector()),
                        d.key_th3.GetBottomLeft(-1).Apply(GetPostConnector(2))));
 
-
-  // Bottom right corner.
-    // shapes.push_back(TriFan(d.key_fn.GetTopRight(),
-    //                       {
-    //                           d.key_z.GetBottomLeft(),
-    //                           d.key_tilde.GetTopLeft(),
-    //                           d.key_tilde.GetBottomLeft(),
-    //                           d.key_fn.GetBottomRight(),
-    //                       }));
-
   //
   // Make the wall
   //
@@ -247,17 +244,6 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
     std::vector<WallPoint> wall_points = {
        {d.key_plus.GetTopLeft(), up},
        {d.key_plus.GetTopRight(), up},
-
-        // {d.key_w.GetTopLeft(), up, 1},;tracer default
-
-        // {d.key_e.GetTopLeft(), up},;tracer default
-        // {d.key_e.GetTopRight(), up},;tracer default
-
-        // {d.key_r.GetTopRight(), up, 1.5},;tracer default
-        // //       {d.key_t.GetTopLeft(), up},
-        // {d.key_t.GetTopRight(), up},;tracer default
-        // {d.key_t.GetTopRight(), right},;tracer default
-        // {d.key_t.GetBottomRight(), right},;tracer default
  
         {d.key_1.GetTopLeft(), up},
         {d.key_1.GetTopRight(), up},
@@ -280,7 +266,7 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
         {d.key_m3.GetTopRight(), right},
         {d.key_m3.GetBottomRight(), right, 1, .5},
 
-        {d.key_th_top3.GetTopRight(), up},
+        //{d.key_th_top3.GetTopRight(), up, 1, 1},
         {d.key_th_top3.GetTopRight(), right},
         {d.key_th_top3.GetBottomRight(), right},
 
@@ -311,30 +297,6 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
 
         {d.key_plus.GetBottomLeft(), left},
         {d.key_plus.GetTopLeft(), left},
-
-        // {d.key_caps.GetBottomLeft(), left},
-        // {d.key_caps.GetBottomLeft(), left},
-
-        // {d.key_tab.GetBottomLeft(), left},
-        // {d.key_tab.GetTopLeft(), left},
-
-        // {d.key_plus.GetBottomLeft(), left},
-        // {d.key_plus.GetTopLeft(), left},
-    
-        // {d.key_shift.GetBottomLeft(), left},
-        // {d.key_shift.GetBottomLeft(), left},
-
-        // {d.key_plus.GetBottomLeft(), left},
-        // {d.key_plus.GetTopLeft(), left},
-        // {d.key_plus.GetTopLeft(), up, 1, 0},
-
-        // {d.key_q.GetBottomLeft(), left},;default tracer
-        // {d.key_q.GetTopLeft(), left},;default tracer
-        // {d.key_q.GetTopLeft(), up, 1, 0},;default tracer
-
-        // {d.key_tab.GetBottomLeft(), left},
-        // {d.key_tab.GetTopLeft(), left},
-        // {d.key_tab.GetTopLeft(), up, 1, 0},
 
     };
 
@@ -426,25 +388,32 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
     screw_right_top.x += -1;
     screw_right_top.y += -0.5;
 
-    glm::vec3 screw_right_bottom = d.key_delete.GetBottomLeft().Apply(kOrigin);
+    glm::vec3 screw_right_bottom = d.key_th1.GetBottomLeft().Apply(kOrigin);
     screw_right_bottom.z = 0;
     screw_right_bottom.y += 4;
-    screw_right_bottom.x += 17;
+    screw_right_bottom.x += 0;
 
-    glm::vec3 screw_right_mid = d.key_ctrl.GetTopLeft().Apply(kOrigin);
+    glm::vec3 screw_right_mid = d.key_th_top3.GetTopRight().Apply(kOrigin);
     screw_right_mid.z = 0;
-    screw_right_mid.x += 19;
-    screw_right_mid.y += 0;
+    screw_right_mid.x += -6;
+    screw_right_mid.y += 2;
+
+    glm::vec3 screw_right_mid1 = d.key_th_bottom2.GetBottomRight().Apply(kOrigin);
+    screw_right_mid1.z = 0;
+    screw_right_mid1.x += -3;
+    screw_right_mid1.y += 6;
 
     shapes.push_back(Union(screw_insert.Translate(screw_left_top),
                            screw_insert.Translate(screw_right_top),
                            screw_insert.Translate(screw_right_mid),
+                           screw_insert.Translate(screw_right_mid1),
                            screw_insert.Translate(screw_right_bottom),
                            screw_insert.Translate(screw_left_bottom)));
     screw_holes = {
         screw_hole.Translate(screw_left_top),
         screw_hole.Translate(screw_right_top),
         screw_hole.Translate(screw_right_mid),
+        screw_hole.Translate(screw_right_mid1),
         screw_hole.Translate(screw_right_bottom),
         screw_hole.Translate(screw_left_bottom),
     };
@@ -452,6 +421,7 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
         screw_hole_bottom.Translate(screw_left_top),
         screw_hole_bottom.Translate(screw_right_top),
         screw_hole_bottom.Translate(screw_right_mid),
+        screw_hole_bottom.Translate(screw_right_mid1),
         screw_hole_bottom.Translate(screw_right_bottom),
         screw_hole_bottom.Translate(screw_left_bottom),
     };
