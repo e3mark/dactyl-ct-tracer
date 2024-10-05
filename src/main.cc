@@ -69,20 +69,28 @@ int main() {
 
   d.key_m2.extra_width_right = 3;
 
-  d.key_1.extra_width_top = 6 ;
-  d.key_4.extra_width_top = 0;
+  d.key_plus.extra_width_top = 0;
+  d.key_1.extra_width_top = 4.5;
+  d.key_2.extra_width_top = 0;
+  d.key_4.extra_width_top = 1;
+  d.key_5.extra_width_top = 2.5;
 
+  d.key_plus.extra_width_left = 2;
   d.key_tab.extra_width_left = 2;
   d.key_caps.extra_width_left = 2;
   d.key_shift.extra_width_left = 2;
+  d.key_fn.extra_width_left = 2;
 
   d.key_slash.extra_width_bottom = 7.5;
   
 
-  d.key_m1.extra_width_top = 0;
+  d.key_m1.extra_width_top = 1.25;
+
   d.key_m1.extra_width_right = 2;
   d.key_m2.extra_width_right = 2;
   d.key_m3.extra_width_right = 2;
+
+
 
   std::vector<Shape> shapes;
 
@@ -109,6 +117,7 @@ int main() {
       d.key_left_arrow.GetBottomRight(),
       d.key_left_arrow.GetBottomLeft(),
   }));
+  
   shapes.push_back(TriMesh({
       d.key_th1.GetBottomLeft(),
       d.key_th1.GetTopLeft(),
@@ -194,29 +203,15 @@ int main() {
                        d.key_th_bottom2.GetTopRight().Apply(GetPostConnector()),
                        d.key_th3.GetBottomLeft(-1).Apply(GetPostConnector(2))));
 
-  shapes.push_back(TriMesh({
-      d.key_q.GetTopLeft(),
-      d.key_q.GetTopRight(),
-      d.key_w.GetTopLeft(),
-  }));
 
-  shapes.push_back(TriMesh({
-      d.key_w.GetTopLeft(),
-      d.key_w.GetTopRight(),
-      d.key_e.GetTopLeft(),
-  }));
-
-  shapes.push_back(TriMesh({
-      d.key_e.GetTopRight(),
-      d.key_r.GetTopLeft(),
-      d.key_r.GetTopRight(),
-  }));
-
-  shapes.push_back(TriMesh({
-      d.key_r.GetTopRight(),
-      d.key_t.GetTopLeft(),
-      d.key_t.GetTopRight(),
-  }));
+  // Bottom right corner.
+    // shapes.push_back(TriFan(d.key_fn.GetTopRight(),
+    //                       {
+    //                           d.key_z.GetBottomLeft(),
+    //                           d.key_tilde.GetTopLeft(),
+    //                           d.key_tilde.GetBottomLeft(),
+    //                           d.key_fn.GetBottomRight(),
+    //                       }));
 
   //
   // Make the wall
@@ -244,6 +239,8 @@ int main() {
     Direction right = Direction::RIGHT;
 
     std::vector<WallPoint> wall_points = {
+       {d.key_plus.GetTopLeft(), up},
+       {d.key_plus.GetTopRight(), up},
 
         // {d.key_w.GetTopLeft(), up, 1},;tracer default
 
@@ -293,6 +290,9 @@ int main() {
         {d.key_slash.GetBottomRight(), down},
         {d.key_slash.GetBottomLeft(), down},
 
+        {d.key_fn.GetBottomRight(), down},
+        {d.key_fn.GetBottomLeft(), down},
+
         //{d.key_z.GetBottomLeft(), down},//tracer default
         //{d.key_z.GetBottomLeft(), left},//tracer default
         //{d.key_a.GetBottomLeft(), left},//tracer default
@@ -302,7 +302,7 @@ int main() {
         {d.key_tilde.GetBottomRight(), down},
         {d.key_tilde.GetBottomLeft(), down},
 
-        {d.key_fn.GetBottomLeft(), down, 0, .75},
+{d.key_fn.GetBottomLeft(), down, 0, .75},
         {d.key_fn.GetBottomLeft(), left, 0, .5},
         {d.key_fn.GetTopLeft(), left, 0, .5},
 
@@ -404,44 +404,46 @@ int main() {
 
   // Add all the screw inserts.
   std::vector<Shape> screw_holes;
-  std::vector<Shape> screw_pegs;
+  std::vector<Shape> screw_holes_bottom;
   {
-    double screw_height = 5;
-    double screw_radius = 4.4 / 2.0;
-    Shape screw_hole = Cylinder(screw_height + .1, screw_radius, 30).TranslateZ(screw_height / 2);
+    double screw_height = 6;
+    double screw_radius = 3.5 / 2.0;
+    double screw_insert_radius = 4.3 / 2.0;
+    Shape screw_hole = Cylinder(screw_height + 12, screw_insert_radius, 40);
+    Shape screw_hole_bottom = Cylinder(screw_height + 12, screw_radius, 40);
     Shape screw_insert =
-        Cylinder(screw_height, screw_radius + 1.65, 30).TranslateZ(screw_height / 2);
+        Cylinder(screw_height, screw_insert_radius + 3, 30).TranslateZ(screw_height / 2);
 
-    glm::vec3 screw_left_bottom = d.key_z.GetBottomLeft().Apply(kOrigin);
+    glm::vec3 screw_left_bottom = d.key_fn.GetBottomLeft().Apply(kOrigin);
     screw_left_bottom.z = 0;
-    screw_left_bottom.x += 3.2;
+    screw_left_bottom.x += 3;
+    screw_left_bottom.y += 0;
 
-    glm::vec3 screw_left_top = d.key_q.GetTopLeft().Apply(kOrigin);
+    glm::vec3 screw_left_top = d.key_plus.GetTopLeft().Apply(kOrigin);
     screw_left_top.z = 0;
     screw_left_top.x += 2.8;
-    screw_left_top.y += -.5;
+    screw_left_top.y += -2;
 
-    glm::vec3 screw_right_top = d.key_t.GetTopRight().Apply(kOrigin);
+    glm::vec3 screw_right_top = d.key_m1.GetTopRight().Apply(kOrigin);
     screw_right_top.z = 0;
-    screw_right_top.x -= 1.5;
-    screw_right_top.y += -.8;
+    screw_right_top.x += -1;
+    screw_right_top.y += -0.5;
 
-    glm::vec3 screw_right_bottom = d.key_th_bottom2.GetBottomRight().Apply(kOrigin);
+    glm::vec3 screw_right_bottom = d.key_delete.GetBottomLeft().Apply(kOrigin);
     screw_right_bottom.z = 0;
-    screw_right_bottom.y += 5.7;
-    screw_right_bottom.x += -1.9;
+    screw_right_bottom.y += 4;
+    screw_right_bottom.x += 17;
 
-    glm::vec3 screw_right_mid = d.key_th_top3.GetTopRight().Apply(kOrigin);
+    glm::vec3 screw_right_mid = d.key_ctrl.GetTopLeft().Apply(kOrigin);
     screw_right_mid.z = 0;
+    screw_right_mid.x += 19;
     screw_right_mid.y += 0;
-    screw_right_mid.x += -4.9;
 
     shapes.push_back(Union(screw_insert.Translate(screw_left_top),
                            screw_insert.Translate(screw_right_top),
                            screw_insert.Translate(screw_right_mid),
                            screw_insert.Translate(screw_right_bottom),
                            screw_insert.Translate(screw_left_bottom)));
-
     screw_holes = {
         screw_hole.Translate(screw_left_top),
         screw_hole.Translate(screw_right_top),
@@ -449,15 +451,15 @@ int main() {
         screw_hole.Translate(screw_right_bottom),
         screw_hole.Translate(screw_left_bottom),
     };
-    Shape peg = Cylinder(5, screw_radius - .4, 30).TranslateZ(2.5);
-    screw_pegs = {
-        peg.Translate(screw_left_top),
-        peg.Translate(screw_right_top),
-        peg.Translate(screw_right_mid),
-        peg.Translate(screw_right_bottom),
-        peg.Translate(screw_left_bottom),
+    screw_holes_bottom = {
+        screw_hole_bottom.Translate(screw_left_top),
+        screw_hole_bottom.Translate(screw_right_top),
+        screw_hole_bottom.Translate(screw_right_mid),
+        screw_hole_bottom.Translate(screw_right_bottom),
+        screw_hole_bottom.Translate(screw_left_bottom),
     };
   }
+
 
   std::vector<Shape> negative_shapes;
 
@@ -470,49 +472,11 @@ int main() {
   });
   negative_shapes.push_back(b_cut.GetInverseSwitch());
   AddShapes(&negative_shapes, screw_holes);
-
-  // // Cut out holes for cords. Inserts can be printed to fit in.
-  // Shape trrs_hole = Cylinder(20, 5, 30).RotateX(90);
-
-  // glm::vec3 trrs_hole_location = d.key_r.GetTopRight().Apply(kOrigin);
-  // trrs_hole_location.z = 11;
-  // trrs_hole_location.x -= 5;
-  // negative_shapes.push_back(trrs_hole.Translate(trrs_hole_location));
-
-  // {
-
-  //   Shape bottom = Cube(5, 1.5, 8).TranslateZ(8/2).TranslateY((-5.3 / 2) + (-1.5 / 2));
-  //   Shape c = Cylinder(2.5, 8, 30).TranslateZ(2.5 / 2);
-  //   Shape cut = Cube(6.3, 5.3, 8);
-  //   Union(bottom, c).Subtract(cut).WriteToFile("trrs.scad");
-  // }
-
-  // Shape result = UnionAll(shapes);
-  // // Subtracting is expensive to preview and is best to disable while testing.
-  // result = result.Subtract(UnionAll(negative_shapes));
-  // result.WriteToFile("left.scad");
-
-  {
-    // glm::vec3 usb_location = d.key_e.GetTopLeft().Apply({10, 0, 0});
-    // usb_location.z = 6;
-    // usb_location.y += 4;
-    // Shape c = Cylinder(8, 2.5, 30).RotateX(90).Translate(usb_location);
-    // Shape usb_hole = Hull(c, c.Projection().LinearExtrude(.1));
-    // result.Subtract(usb_hole).MirrorX().WriteToFile("right.scad");
-
-    // double thick = 3.8;
-    // Shape front = Cube(4.8, thick, 7).TranslateZ(7/2);
-    // Shape back = Cube(8, 2, 7.5).TranslateZ(7.5/2).TranslateY(thick/2 + .5);
-  
-    // Shape c2 = Cylinder(8, 2.5, 30).RotateX(90).TranslateZ(6);
-    // Union(front, back).Subtract(c2).WriteToFile("usb_holder.scad");
-  }
-
   // Cut out hole for holder.
   Shape holder_hole = Cube(29.0, 20.0, 12.5).TranslateZ(12 / 2);
-  glm::vec3 holder_location = d.key_r.GetTopLeft().Apply(kOrigin);
+  glm::vec3 holder_location = d.key_5.GetTopLeft().Apply(kOrigin);
   holder_location.z = -0.5;
-  holder_location.x += 17.5;
+  holder_location.x += 12.5;//17.5
   negative_shapes.push_back(holder_hole.Translate(holder_location));
 
   Shape result = UnionAll(shapes);
@@ -528,16 +492,13 @@ int main() {
       bottom_plate_shapes.push_back(Hull(key->GetSwitch()));
     }
 
-    Shape bottom_plate =
-        UnionAll(bottom_plate_shapes).Projection().LinearExtrude(1.5).TranslateZ(1.5 / 2);
+    Shape bottom_plate = UnionAll(bottom_plate_shapes)
+                             .Projection()
+                             .LinearExtrude(3)
+                             .Subtract(UnionAll(screw_holes_bottom));
 
-    Shape bottom_plate_screws = bottom_plate.Subtract(UnionAll(screw_holes));
-    bottom_plate_screws.WriteToFile("bottom_left.scad");
-    bottom_plate_screws.MirrorX().WriteToFile("bottom_right.scad");
-
-    bottom_plate = bottom_plate + UnionAll(screw_pegs);
-    bottom_plate.WriteToFile("bottom_v2_left.scad");
-    bottom_plate.MirrorX().WriteToFile("bottom_v2_right.scad");
+    bottom_plate.WriteToFile("bottom_left.scad");
+    bottom_plate.MirrorX().WriteToFile("bottom_right.scad");
   }
 
   return 0;
@@ -546,7 +507,7 @@ int main() {
 Shape ConnectMainKeys(KeyData& d) {
   std::vector<Shape> shapes;
   for (int r = 0; r < d.grid.num_rows(); ++r) {
-    for (int c = 2; c < d.grid.num_columns(); ++c) {
+    for (int c = 0; c < d.grid.num_columns(); ++c) {
       Key* key = d.grid.get_key(r, c);
       if (!key) {
         // No key at this location.
