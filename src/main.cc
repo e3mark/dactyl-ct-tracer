@@ -349,7 +349,7 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
       for (size_t j = 0; j < slice.size(); ++j) {
         shapes.push_back(Hull(slice[j], next_slice[j]));
         // Uncomment for testing. Much faster and easier to visualize.
-        // shapes.push_back(slice[j]);
+        //shapes.push_back(slice[j]);
       }
     }
   }
@@ -456,10 +456,11 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
   negative_shapes.push_back(b_cut.GetInverseSwitch());
   AddShapes(&negative_shapes, screw_holes);
   // Cut out hole for holder.
+  //Shape holder_hole = Cube(29.0, 20.0, 12.5).TranslateZ(12 / 2);
   Shape holder_hole = Cube(29.0, 20.0, 12.5).TranslateZ(12 / 2);
   glm::vec3 holder_location = d.key_5.GetTopLeft().Apply(kOrigin);
   holder_location.z = -0.5;
-  holder_location.x += 12.5;//17.5
+  holder_location.x += 16;//17.5
   negative_shapes.push_back(holder_hole.Translate(holder_location));
 
   Shape result = UnionAll(shapes);
