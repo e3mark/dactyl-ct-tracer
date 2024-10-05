@@ -403,10 +403,22 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
     screw_right_mid1.x += -3;
     screw_right_mid1.y += 6;
 
+    glm::vec3 screw_right_mid2 = d.key_th3.GetBottomRight().Apply(kOrigin);
+    screw_right_mid2.z = 0;
+    screw_right_mid2.x += -5;
+    screw_right_mid2.y += 4;
+
+    glm::vec3 screw_right_mid3 = d.key_3.GetTopRight().Apply(kOrigin);
+    screw_right_mid3.z = 0;
+    screw_right_mid3.x += 0;
+    screw_right_mid3.y += 0;
+
     shapes.push_back(Union(screw_insert.Translate(screw_left_top),
                            screw_insert.Translate(screw_right_top),
                            screw_insert.Translate(screw_right_mid),
                            screw_insert.Translate(screw_right_mid1),
+                           screw_insert.Translate(screw_right_mid2),
+                           screw_insert.Translate(screw_right_mid3),
                            screw_insert.Translate(screw_right_bottom),
                            screw_insert.Translate(screw_left_bottom)));
     screw_holes = {
@@ -414,6 +426,8 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
         screw_hole.Translate(screw_right_top),
         screw_hole.Translate(screw_right_mid),
         screw_hole.Translate(screw_right_mid1),
+        screw_hole.Translate(screw_right_mid2),
+        screw_hole.Translate(screw_right_mid3),
         screw_hole.Translate(screw_right_bottom),
         screw_hole.Translate(screw_left_bottom),
     };
@@ -422,6 +436,8 @@ shapes.push_back(TriFan(d.key_m3.GetBottomRight(),
         screw_hole_bottom.Translate(screw_right_top),
         screw_hole_bottom.Translate(screw_right_mid),
         screw_hole_bottom.Translate(screw_right_mid1),
+        screw_hole_bottom.Translate(screw_right_mid2),
+        screw_hole_bottom.Translate(screw_right_mid3),
         screw_hole_bottom.Translate(screw_right_bottom),
         screw_hole_bottom.Translate(screw_left_bottom),
     };
